@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom'
 
 function Inicio() {
 
@@ -8,10 +9,10 @@ function Inicio() {
       <p>Backend: NodeJs, Express , WebApiRest, Swagger, Sequelize, Sqlite y múltiples capas en Javascript.</p>
       <p>Frontend: Single Page Aplication, HTML, CSS, Bootstrap, NodeJs, Javascript y React.</p>
 
-      <button className="btn btn-lg btn-primary">
+      <Link to="/articulosfamilias" className="btn btn-lg btn-primary">
         <i className="fa fa-search"></i>
         Ver Articulos Familias
-      </button>
+      </Link>
     </div>
   )
 }
