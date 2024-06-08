@@ -40,3 +40,5 @@ export default function ArticulosBuscar({ Nombre, setNombre, Activo, setActivo, 
         </form>
     );
 }
+
+export { ArticulosBuscar }

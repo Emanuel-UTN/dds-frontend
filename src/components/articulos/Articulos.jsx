@@ -5,7 +5,7 @@ import ArticulosBuscar from "./ArticulosBuscar";
 import ArticulosListado from "./ArticulosListado";
 import ArticulosRegistro from "./ArticulosRegistro";
 
-import { articulosFamiliasMockSevice as articulosFamiliasService } from "../../services/articulosFamiliasMockService";
+import { articulosFamiliasMockService as articulosFamiliasService } from "../../services/articulosFamilias-mock.service";
 
 
 function Articulos(){
@@ -96,10 +96,10 @@ function Articulos(){
         setItem({
             IdArticulo: 0,
             Nombre: "",
-            Precio: 0,
+            Precio: "",
             CodigoDeBarra: "",
             IdArticuloFamilia: 1,
-            Stock: 0,
+            Stock: "",
             FechaAlta: moment().format("YYYY-MM-DD"),
             Activo: true
         });
@@ -139,8 +139,52 @@ function Articulos(){
     return (
         <div>
             <div className="tituloPagina">
-                
+                Articulos <small>{TituloAccionABMC[AccionABMC]}</small>
             </div>
+
+            {AccionABMC === "L" && (
+                <ArticulosBuscar
+                    Nombre = {Nombre}
+                    setNombre = {setNombre}
+                    Activo = {Activo}
+                    setActivo = {setActivo}
+                    Buscar = {Buscar}
+                    Agregar = {Agregar}
+                />
+            )}
+
+            {/* Tabla de Resultado de busqueda y Paginador */}
+            {AccionABMC === "L" && Items?.length > 0 && (
+                <ArticulosListado
+                    {...{
+                        Items,
+                        Consultar,
+                        Modificar,
+                        ActivarDesactivar,
+                        Imprimir,
+                        Pagina,
+                        RegistrosTotal,
+                        Paginas,
+                        Buscar
+                    }}
+                />
+            )}
+
+            {AccionABMC === "L" && Items?.length === 0 && (
+                <div className="alert alert-info mensajesAlert">
+                    <i className="fa fa-exclamation-sign"></i>
+                    No se encontraron registros...
+                </div>
+            )}
+
+            {/* Formulario de Alta/Modificacion/Consulta */}
+            {AccionABMC !== "L" && (
+                <ArticulosRegistro
+                    {...{ AccionABMC, ArticulosFamilias, Item, Grabar, Volver }}
+                />
+            )}
         </div>
     )
 }
+
+export { Articulos };

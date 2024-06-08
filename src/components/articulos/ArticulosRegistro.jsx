@@ -135,3 +135,5 @@ export default function ArticulosRegistro({
         </form>
     );
 }
+
+export { ArticulosRegistro }
