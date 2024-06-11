@@ -1,5 +1,8 @@
 import './App.css'
 import { BrowserRouter, Route, Routes, Navigate } from 'react-router-dom'
+
+import { ModalDialog } from './components/ModalDialog' 
+
 import { Menu } from './components/Menu'
 import { Inicio } from './components/Inicio'
 import { ArticulosFamilias } from './components/ArticulosFamilias'
@@ -11,6 +14,8 @@ function App() {
   return (
     <>
       <BrowserRouter>
+        <ModalDialog/>
+
         <Menu/>
         <div className="divBody">
           <Routes>

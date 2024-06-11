@@ -7,6 +7,7 @@ import ArticulosRegistro from "./ArticulosRegistro";
 
 import { articulosService } from "../../services/articulos.service";
 import { articulosFamiliasService } from "../../services/articulosFamilias.service";
+import modalDialogService from "../../services/modalDialog.service";
 
 
 function Articulos(){
@@ -45,6 +46,7 @@ function Articulos(){
         else _pagina = Pagina;
 
         const data = await articulosService.Buscar(Nombre, Activo, _pagina);
+
         setItems(data.Items);
         setRegistrosTotal(data.RegistrosTotal);
 
@@ -67,7 +69,7 @@ function Articulos(){
 
     function Modificar(item){
         if(!item.Activo){
-            alert("No se puede modificar un registro Inactivo.");
+            modalDialogService.Alert("No se puede modificar un registro Inactivo.");
             return;
         }
         BuscarPorId(item, 'M');
@@ -85,23 +87,26 @@ function Articulos(){
             FechaAlta: moment(new Date()).format("YYYY-MM-DD"),
             Activo: true
         });
-        alert("Preparando el Alta...");
+        modalDialogService.Alert("Preparando el Alta...");
     }
 
     function Imprimir(){
-        alert("En Desarrollo...");
+        modalDialogService.Alert("En Desarrollo...");
     }
 
     async function ActivarDesactivar(item){
-        const resp = window.confirm(
+        modalDialogService.Confirm(
             "Esta seguro que quiere " +
             (item.Activo ? "desactivar" : "activar") +
-            " el registro?"
-        );
-        if (resp) {
-            await articulosService.ActivarDesactivar(item);
-            await Buscar();
-        }
+            " este registro?",
+            undefined,
+            undefined,
+            undefined,
+            async () => {
+                await articulosService.ActivarDesactivar(item);
+                await Buscar();
+            }
+        )
     }
 
     async function Grabar(item){
@@ -109,7 +114,7 @@ function Articulos(){
         try {
             await articulosService.Grabar(item);
         } catch (error) {
-            alert(error?.response?.data?.message ?? error.toString())
+            modalDialogService.Alert(error?.response?.data?.message ?? error.toString())
             return;
         }
 
@@ -117,7 +122,7 @@ function Articulos(){
         Volver();
 
         setTimeout(() => {
-            alert(
+            modalDialogService.Alert(
                 "Registro " +
                 (accionABMC === "A" ? "agregado" : "modificado") +
                 " correctamente."
