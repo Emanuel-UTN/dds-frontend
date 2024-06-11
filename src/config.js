@@ -12,10 +12,9 @@ const urlServidor = "https://labsys.frc.utn.edu.ar/dds-express"
 //const urlServidor = ""  
 
 
-
 const urlResourceArticulos = urlServidor + "/api/articulos";
 const urlResourceArticulosFamilias = urlServidor + "/api/articulosfamilias";
-
+const urlResourceArticulosJWT = urlServidor + "/api/articulosJWT";
 
 
 
@@ -23,4 +22,5 @@ export const config = {
     urlServidor,
     urlResourceArticulos,
     urlResourceArticulosFamilias,
+    urlResourceArticulosJWT
 }

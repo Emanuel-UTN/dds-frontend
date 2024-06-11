@@ -1,13 +1,11 @@
-import {config} from "../config";
+import { config } from "../config";
 import httpService from "./http.service";
 
-const urlSource = config.urlResourceArticulos;
+const urlSource = config.urlResourceArticulosJWT;
 
 async function Buscar(Nombre, Activo, Pagina){
-    const resp = await httpService.get(urlSource, {
-        params: { Nombre, Activo, Pagina }
-    });
-
+    const resp = await httpService.get(urlSource, {params: {Nombre, Activo, Pagina}});
+    
     return resp.data;
 }
 
@@ -29,4 +27,4 @@ async function Grabar(item){
     }
 }
 
-export const articulosService = { Buscar, BuscarPorId, ActivarDesactivar, Grabar };
+export const articulosJWTService = { Buscar, BuscarPorId, ActivarDesactivar, Grabar };
